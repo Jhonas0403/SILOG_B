@@ -9,6 +9,7 @@ import com.silog.silog_user.interfaces.rest.user.dto.UpdateRequestUser;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class UserRepositoryAdapter implements UserRepositoryPort {
@@ -33,7 +34,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public User findById(long id) {
+    public User findById(UUID id) {
         UserEntity entity = jpaUserRepository.findById(id).orElse(null);
         return UserMapper.toDomain(entity);
     }

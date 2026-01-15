@@ -1,13 +1,11 @@
 package com.silog.silog_user.interfaces.rest.product;
 
 import com.silog.silog_user.domain.model.Product;
+import com.silog.silog_user.domain.port.in.Products.CreateProductUseCase;
 import com.silog.silog_user.domain.port.in.Products.GetProductByIdUseCase;
 import com.silog.silog_user.domain.port.in.Products.GetProductUseCase;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,10 +15,12 @@ import java.util.UUID;
 public class ProductController {
     private final GetProductUseCase getProductUseCase;
     private final GetProductByIdUseCase getProductByIdUseCase;
+    private final CreateProductUseCase createProductUseCase;
 
-    public ProductController(GetProductUseCase getProductUseCase, GetProductByIdUseCase getProductByIdUseCase) {
+    public ProductController(CreateProductUseCase createProductUseCase,GetProductUseCase getProductUseCase, GetProductByIdUseCase getProductByIdUseCase) {
         this.getProductUseCase = getProductUseCase;
         this.getProductByIdUseCase = getProductByIdUseCase;
+        this.createProductUseCase = createProductUseCase;
     }
 
     @GetMapping
@@ -33,5 +33,11 @@ public class ProductController {
     public ResponseEntity<Product> getProductById(@PathVariable UUID id){
         Product product = getProductByIdUseCase.getProductById(id);
         return ResponseEntity.ok(product);
+    }
+
+    @PostMapping
+    public ResponseEntity<Product> createProduct(@RequestBody Product product){
+        Product createdProduct =  createProductUseCase.create(product);
+        return ResponseEntity.ok(createdProduct);
     }
 }

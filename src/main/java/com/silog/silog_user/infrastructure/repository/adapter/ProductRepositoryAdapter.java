@@ -29,4 +29,10 @@ public class ProductRepositoryAdapter  implements ProductRepositoryPort {
         ProductEntity product = jpaProductRepository.findById(id).orElse(null);
         return ProductMapper.toDomain(product);
     }
+
+    public Product save(Product product) {
+        ProductEntity productCreated = ProductMapper.toProductEntity(product);
+        ProductEntity save =  jpaProductRepository.save(productCreated);
+        return ProductMapper.toDomain(save);
+    }
 }

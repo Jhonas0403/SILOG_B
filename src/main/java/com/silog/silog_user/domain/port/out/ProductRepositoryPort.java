@@ -8,4 +8,5 @@ import java.util.UUID;
 public interface ProductRepositoryPort {
     List<Product> findAll();
     Product findById(UUID id);
+    Product save(Product product);
 }

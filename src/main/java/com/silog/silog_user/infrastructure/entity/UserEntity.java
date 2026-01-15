@@ -3,6 +3,7 @@ package com.silog.silog_user.infrastructure.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -11,13 +12,13 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "company_id")
-    private Long companyId;
+    private UUID companyId;
 
     @Column(name = "store_id")
-    private Long storeId;
+    private UUID storeId;
 
     @Column(name = "user_name", nullable = false)
     private String userName;
@@ -41,7 +42,7 @@ public class UserEntity {
     private String userAddress;
 
     @Column(name = "user_role_id", nullable = false)
-    private Long userRoleId;
+    private UUID userRoleId;
 
     @Column(name = "user_status", nullable = false)
     private Boolean userStatus;
@@ -55,14 +56,14 @@ public class UserEntity {
     public UserEntity() {}
 
     // getters y setters (genera desde tu IDE)
-    public Long getUserId() { return id; }
-    public void setUserId(Long id) { this.id = id; }
+    public UUID getUserId() { return id; }
+    public void setUserId(UUID id) { this.id = id; }
 
-    public Long getCompanyId() { return companyId; }
-    public void setCompanyId(Long companyId) { this.companyId = companyId; }
+    public UUID getCompanyId() { return companyId; }
+    public void setCompanyId(UUID companyId) { this.companyId = companyId; }
 
-    public Long getStoreId() { return storeId; }
-    public void setStoreId(Long storeId) { this.storeId = storeId; }
+    public UUID getStoreId() { return storeId; }
+    public void setStoreId(UUID storeId) { this.storeId = storeId; }
 
     public String getUserName() { return userName; }
     public void setUserName(String userName) { this.userName = userName; }
@@ -85,8 +86,8 @@ public class UserEntity {
     public String getUserAddress() { return userAddress; }
     public void setUserAddress(String userAddress) { this.userAddress = userAddress; }
 
-    public Long getUserRoleId() { return userRoleId; }
-    public void setUserRoleId(Long userRoleId) { this.userRoleId = userRoleId; }
+    public UUID getUserRoleId() { return userRoleId; }
+    public void setUserRoleId(UUID userRoleId) { this.userRoleId = userRoleId; }
 
     public Boolean getUserStatus() { return userStatus; }
     public void setUserStatus(Boolean userStatus) { this.userStatus = userStatus; }

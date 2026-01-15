@@ -1,11 +1,12 @@
 package com.silog.silog_user.domain.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class User {
-    private Long id;
-    private Long companyId;
-    private Long storeId;
+    private UUID id;
+    private UUID companyId;
+    private UUID storeId;
     private String firstName;
     private String lastName;
     private String dni;
@@ -14,29 +15,29 @@ public class User {
     private String phone;
     private String address;
     private Boolean status;
-    private Long userRoleId;
+    private UUID userRoleId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public User() {}
 
-    public Long getUserRoleId() {
+    public UUID getUserRoleId() {
         return userRoleId;
     }
 
-    public void setUserRoleId(Long userRoleId) {
+    public void setUserRoleId(UUID userRoleId) {
         this.userRoleId = userRoleId;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public void setCompanyId(Long companyId) {
+    public void setCompanyId(UUID companyId) {
         this.companyId = companyId;
     }
 
-    public void setStoreId(Long storeId) {
+    public void setStoreId(UUID storeId) {
         this.storeId = storeId;
     }
 
@@ -80,15 +81,15 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public Long getCompanyId() {
+    public UUID getCompanyId() {
         return companyId;
     }
 
-    public Long getStoreId() {
+    public UUID getStoreId() {
         return storeId;
     }
 

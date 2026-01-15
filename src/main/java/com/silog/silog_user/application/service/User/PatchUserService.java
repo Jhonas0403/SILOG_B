@@ -6,6 +6,8 @@ import com.silog.silog_user.domain.port.out.UserRepositoryPort;
 import com.silog.silog_user.interfaces.rest.user.dto.UpdateRequestUser;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class PatchUserService implements PatchUserUseCase {
 
@@ -16,7 +18,7 @@ public class PatchUserService implements PatchUserUseCase {
     }
 
     @Override
-    public User patch (Long id,UpdateRequestUser user) {
+    public User patch (UUID id, UpdateRequestUser user) {
         User userFinder = repository.findById(id);
         if (userFinder == null) {
             throw new RuntimeException("User not found");

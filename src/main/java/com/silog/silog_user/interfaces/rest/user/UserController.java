@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -39,7 +40,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable long id) {
+    public ResponseEntity<User> getUserById(@PathVariable UUID id) {
         User user = getUserByIdUseCase.findById(id);
         return ResponseEntity.ok(user);
     }
@@ -49,7 +50,7 @@ public class UserController {
         return ResponseEntity.ok(userU);
     }
     @PatchMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody UpdateRequestUser user) {
+    public ResponseEntity<User> updateUser(@PathVariable UUID id, @RequestBody UpdateRequestUser user) {
         User userU = patchUserUseCase.patch(id, user);
         return ResponseEntity.ok(userU);
     }
