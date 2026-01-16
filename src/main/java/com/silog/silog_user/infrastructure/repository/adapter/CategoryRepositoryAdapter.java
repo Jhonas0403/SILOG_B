@@ -22,4 +22,11 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
         List<CategoryEntity> categories = jpaCategoryRepository.findAll();
         return categories.stream().map(CategoryMapper::toDomain).toList();
     }
+
+    @Override
+    public Category save(Category category) {
+        CategoryEntity entity = CategoryMapper.toEntity(category);
+        entity = jpaCategoryRepository.save(entity);
+        return CategoryMapper.toDomain(entity);
+    }
 }
