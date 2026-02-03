@@ -1,18 +1,21 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/silog_db
-    username: admin
-    password: admin
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: none   # No queremos que Hibernate modifique las tablas
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-        show_sql: true
+        show_sql: false   # ⬅️ cambiar esto
 
   flyway:
-    enabled: false   # <- desactivamos Flyway
+    enabled: false
+
+server:
+  port: ${PORT:8080}     # ⬅️ ESTE ES CLAVE
