@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface CategoryRepositoryPort {
     List<Category> findAll();
+    Integer findMaxOrder();
     Category save(Category category);
 }

@@ -19,8 +19,13 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
 
     @Override
     public List<Category> findAll() {
-        List<CategoryEntity> categories = jpaCategoryRepository.findAll();
+        List<CategoryEntity> categories = jpaCategoryRepository.findAllByOrderByCategoryOrderAsc();
         return categories.stream().map(CategoryMapper::toDomain).toList();
+    }
+
+    @Override
+    public Integer findMaxOrder() {
+        return jpaCategoryRepository.findMaxCategoryOrder();
     }
 
     @Override

@@ -19,8 +19,8 @@ public class BrandEntity {
     @Column(name = "brand_description")
     private String brandDescription;
 
-    @Column(name = "brand_category_id")
-    private UUID brandCategoryId;
+    @Column(name = "brand_subcategory_id")
+    private UUID brandSubcategoryId;
 
     @Column(name = "brand_status")
     private Boolean categoryStatus;
@@ -63,12 +63,12 @@ public class BrandEntity {
         this.brandDescription = brandDescription;
     }
 
-    public UUID getBrandCategoryId() {
-        return brandCategoryId;
+    public UUID getBrandSubcategoryId() {
+        return brandSubcategoryId;
     }
 
-    public void setBrandCategoryId(UUID brandCategoryId) {
-        this.brandCategoryId = brandCategoryId;
+    public void setBrandSubcategoryId(UUID brandCategoryId) {
+        this.brandSubcategoryId = brandCategoryId;
     }
 
     public UUID getCreatedBy() {

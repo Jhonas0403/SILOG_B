@@ -10,7 +10,7 @@ public class BrandMapper {
         entity.setId(brand.getId());
         entity.setBrandName(brand.getName());
         entity.setBrandDescription(brand.getDescription());
-        entity.setBrandCategoryId(brand.getCategoryId());
+        entity.setBrandSubcategoryId(brand.getSubcategoryId());
         entity.setCategoryStatus(brand.getStatus());
         entity.setCreatedBy(brand.getCreatedBy());
         entity.setUpdatedBy(brand.getUpdatedBy());
@@ -24,7 +24,7 @@ public class BrandMapper {
         brand.setId(entity.getId());
         brand.setName(entity.getBrandName());
         brand.setDescription(entity.getBrandDescription());
-        brand.setCategoryId(entity.getBrandCategoryId());
+        brand.setSubcategoryId(entity.getBrandSubcategoryId());
         brand.setStatus(entity.getCategoryStatus());
         brand.setCreatedBy(entity.getCreatedBy());
         brand.setUpdatedBy(entity.getUpdatedBy());

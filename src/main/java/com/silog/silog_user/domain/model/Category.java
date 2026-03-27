@@ -6,7 +6,7 @@ import java.util.UUID;
 public class Category {
     private UUID id;
     private String name;
-    private String description;
+    private Integer order;
     private Boolean status;
     private UUID createdBy;
     private UUID updatedBy;
@@ -32,20 +32,19 @@ public class Category {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Boolean getStatus() {
         return status;
     }
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     public UUID getCreatedBy() {

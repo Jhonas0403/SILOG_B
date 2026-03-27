@@ -9,8 +9,8 @@ public class CategoryMapper {
         CategoryEntity entity = new CategoryEntity();
         entity.setId(category.getId());
         entity.setCategoryName(category.getName());
-        entity.setCategoryDescription(category.getDescription());
         entity.setCategoryStatus(category.getStatus());
+        entity.setCategoryOrder(category.getOrder());
         entity.setCreatedBy(category.getCreatedBy());
         entity.setUpdatedBy(category.getUpdatedBy());
         entity.setCreatedAt(category.getCreatedAt());
@@ -22,8 +22,8 @@ public class CategoryMapper {
         Category category = new Category();
         category.setId(entity.getId());
         category.setName(entity.getCategoryName());
-        category.setDescription(entity.getCategoryDescription());
         category.setStatus(entity.getCategoryStatus());
+        category.setOrder(entity.getCategoryOrder());
         category.setCreatedBy(entity.getCreatedBy());
         category.setUpdatedBy(entity.getUpdatedBy());
         category.setCreatedAt(entity.getCreatedAt());

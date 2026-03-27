@@ -16,11 +16,11 @@ public class CategoryEntity {
     @Column(name="category_name")
     private String categoryName;
 
-    @Column(name="category_description")
-    private String categoryDescription;
-
     @Column(name = "category_status")
     private Boolean categoryStatus;
+
+    @Column (name = "category_order")
+    private Integer categoryOrder;
 
     @Column(name = "created_by")
     private UUID createdBy;
@@ -52,20 +52,20 @@ public class CategoryEntity {
         this.categoryName = categoryName;
     }
 
-    public String getCategoryDescription() {
-        return categoryDescription;
-    }
-
-    public void setCategoryDescription(String categoryDescription) {
-        this.categoryDescription = categoryDescription;
-    }
-
     public Boolean getCategoryStatus() {
         return categoryStatus;
     }
 
     public void setCategoryStatus(Boolean categoryStatus) {
         this.categoryStatus = categoryStatus;
+    }
+
+    public Integer getCategoryOrder() {
+        return categoryOrder;
+    }
+
+    public void setCategoryOrder(Integer categoryOrder) {
+        this.categoryOrder = categoryOrder;
     }
 
     public UUID getCreatedBy() {
