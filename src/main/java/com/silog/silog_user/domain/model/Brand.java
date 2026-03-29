@@ -10,6 +10,7 @@ public class Brand {
     private UUID subcategoryId;
     private UUID categoryId;
     private Boolean status;
+    private Integer order;
     private UUID createdBy;
     private UUID updatedBy;
     private LocalDateTime createdAt;
@@ -55,6 +56,13 @@ public class Brand {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     public UUID getCreatedBy() {

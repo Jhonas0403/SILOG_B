@@ -28,4 +28,9 @@ public class BrandRepositoryAdapter implements BrandRepositoryPort {
         brandEntity = jpaBrandRepository.save(brandEntity);
         return BrandMapper.toDomain(brandEntity);
     }
+
+    @Override
+    public  Integer findMaxOrder() {
+        return jpaBrandRepository.findMaxBrandOrder();
+    }
 }

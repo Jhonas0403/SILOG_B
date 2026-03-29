@@ -14,6 +14,9 @@ public class CreateBrandService implements CreateBrandUseCase {
 
     @Override
     public Brand create(Brand brand) {
+        Integer nextBrand = brandRepositoryPort.findMaxOrder() + 1;
+
+        brand.setOrder(nextBrand);
         return brandRepositoryPort.save(brand);
     }
 }

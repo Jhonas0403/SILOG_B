@@ -25,6 +25,9 @@ public class BrandEntity {
     @Column(name = "brand_status")
     private Boolean categoryStatus;
 
+    @Column(name = "brand_order")
+    private Integer brandOrder;
+
     @Column(name = "created_by")
     private UUID createdBy;
 
@@ -85,6 +88,14 @@ public class BrandEntity {
 
     public void setCategoryStatus(Boolean categoryStatus) {
         this.categoryStatus = categoryStatus;
+    }
+
+    public Integer getBrandOrder() {
+        return brandOrder;
+    }
+
+    public void setBrandOrder(Integer brandOrder) {
+        this.brandOrder = brandOrder;
     }
 
     public UUID getUpdatedBy() {

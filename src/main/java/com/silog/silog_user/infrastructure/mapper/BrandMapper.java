@@ -11,6 +11,7 @@ public class BrandMapper {
         entity.setBrandName(brand.getName());
         entity.setBrandDescription(brand.getDescription());
         entity.setBrandSubcategoryId(brand.getSubcategoryId());
+        entity.setBrandOrder(brand.getOrder());
         entity.setCategoryStatus(brand.getStatus());
         entity.setCreatedBy(brand.getCreatedBy());
         entity.setUpdatedBy(brand.getUpdatedBy());
@@ -26,6 +27,7 @@ public class BrandMapper {
         brand.setDescription(entity.getBrandDescription());
         brand.setSubcategoryId(entity.getBrandSubcategoryId());
         brand.setStatus(entity.getCategoryStatus());
+        brand.setOrder(entity.getBrandOrder());
         brand.setCreatedBy(entity.getCreatedBy());
         brand.setUpdatedBy(entity.getUpdatedBy());
         brand.setCreatedAt(entity.getCreatedAt());

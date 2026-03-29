@@ -7,4 +7,5 @@ import java.util.List;
 public interface BrandRepositoryPort {
     List<Brand> findAll();
     Brand save(Brand brand);
+    Integer findMaxOrder();
 }
