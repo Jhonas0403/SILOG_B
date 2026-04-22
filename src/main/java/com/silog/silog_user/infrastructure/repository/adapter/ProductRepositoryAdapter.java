@@ -21,7 +21,7 @@ public class ProductRepositoryAdapter  implements ProductRepositoryPort {
 
     @Override
     public List<Product> findAll() {
-        List<ProductEntity> products = jpaProductRepository.findAll();
+        List<ProductEntity> products = jpaProductRepository.findAllByOrderByProductOrderAsc();
         return products.stream().map(ProductMapper::toDomain).toList();
     }
 
@@ -34,5 +34,9 @@ public class ProductRepositoryAdapter  implements ProductRepositoryPort {
         ProductEntity productCreated = ProductMapper.toProductEntity(product);
         ProductEntity save =  jpaProductRepository.save(productCreated);
         return ProductMapper.toDomain(save);
+    }
+
+    public Integer findMaxOrder() {
+        return jpaProductRepository.findMaxProductOrder();
     }
 }

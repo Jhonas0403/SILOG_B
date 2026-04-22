@@ -9,4 +9,5 @@ public interface ProductRepositoryPort {
     List<Product> findAll();
     Product findById(UUID id);
     Product save(Product product);
+    Integer findMaxOrder();
 }

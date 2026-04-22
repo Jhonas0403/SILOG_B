@@ -18,6 +18,11 @@ public class CreateProductService  implements CreateProductUseCase {
 
     @Override
     public Product create(Product product) {
+        Integer nextOrder = productRepositoryPort.findMaxOrder() + 1;
+        product.setOrder(nextOrder);
+
+        if(product.getStatus() == null) product.setStatus(true);
+        if(product.getUpdatedBy() == null) product.setUpdatedBy(product.getCreatedBy());
         return productRepositoryPort.save(product);
     }
 }
