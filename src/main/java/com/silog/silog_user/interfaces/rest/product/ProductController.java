@@ -4,6 +4,8 @@ import com.silog.silog_user.domain.model.Product;
 import com.silog.silog_user.domain.port.in.Products.CreateProductUseCase;
 import com.silog.silog_user.domain.port.in.Products.GetProductByIdUseCase;
 import com.silog.silog_user.domain.port.in.Products.GetProductUseCase;
+import com.silog.silog_user.interfaces.rest.product.dto.ProductRequest;
+import com.silog.silog_user.interfaces.rest.product.dto.ProductResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,20 +26,20 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getProducts(){
+    public ResponseEntity<List<ProductResponse>> getProducts(){
         List<Product> products = getProductUseCase.getProducts();
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok(products.stream().map(ProductResponse::fromDomain).toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable UUID id){
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable UUID id){
         Product product = getProductByIdUseCase.getProductById(id);
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok(ProductResponse.fromDomain(product));
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product){
-        Product createdProduct =  createProductUseCase.create(product);
-        return ResponseEntity.ok(createdProduct);
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest product){
+        Product createdProduct =  createProductUseCase.create(product.toDomain());
+        return ResponseEntity.ok(ProductResponse.fromDomain(createdProduct));
     }
 }

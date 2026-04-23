@@ -21,6 +21,9 @@ public class BrandMapper {
     }
 
     public static Brand toDomain(BrandEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         Brand brand = new Brand();
         brand.setId(entity.getId());
         brand.setName(entity.getBrandName());

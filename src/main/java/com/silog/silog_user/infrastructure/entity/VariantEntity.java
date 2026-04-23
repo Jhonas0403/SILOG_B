@@ -1,6 +1,5 @@
 package com.silog.silog_user.infrastructure.entity;
 
-import com.silog.silog_user.domain.model.Variant;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -11,7 +10,7 @@ import java.util.UUID;
 public class VariantEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "variant_id", nullable = false, updatable = false)
     private UUID variantId;
 

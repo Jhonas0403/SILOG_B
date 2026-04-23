@@ -25,6 +25,9 @@ public class UserMapper {
     }
 
     public static User toDomain(UserEntity e){
+        if (e == null) {
+            return null;
+        }
         User user = new User();
         user.setId(e.getUserId());
         user.setCompanyId(e.getCompanyId());

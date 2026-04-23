@@ -9,7 +9,7 @@ import java.util.UUID;
 @Table(name="categories")
 public class CategoryEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "category_id", nullable = false,updatable = false)
     private UUID id;
 

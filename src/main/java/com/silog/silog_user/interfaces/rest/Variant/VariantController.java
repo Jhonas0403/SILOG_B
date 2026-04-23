@@ -3,8 +3,10 @@ package com.silog.silog_user.interfaces.rest.Variant;
 import com.silog.silog_user.domain.model.Variant;
 import com.silog.silog_user.domain.port.in.Variant.CreateVariantUseCase;
 import com.silog.silog_user.domain.port.in.Variant.GetVariantUseCase;
+import com.silog.silog_user.interfaces.rest.Variant.dto.VariantRequest;
+import com.silog.silog_user.interfaces.rest.Variant.dto.VariantResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/variant")
 public class VariantController {
     private final GetVariantUseCase getVariantUseCase;
@@ -24,14 +26,14 @@ public class VariantController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Variant>> getVariants() {
+    public ResponseEntity<List<VariantResponse>> getVariants() {
         List<Variant> variants = getVariantUseCase.getVariants();
-        return ResponseEntity.ok(variants);
+        return ResponseEntity.ok(variants.stream().map(VariantResponse::fromDomain).toList());
     }
 
     @PostMapping
-    public ResponseEntity<Variant>  createVariant(@RequestBody Variant variant) {
-        Variant createVariant = createVariantUseCase.create(variant);
-        return ResponseEntity.ok(createVariant);
+    public ResponseEntity<VariantResponse>  createVariant(@RequestBody VariantRequest variant) {
+        Variant createVariant = createVariantUseCase.create(variant.toDomain());
+        return ResponseEntity.ok(VariantResponse.fromDomain(createVariant));
     }
 }

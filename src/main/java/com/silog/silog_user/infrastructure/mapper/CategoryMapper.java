@@ -19,6 +19,9 @@ public class CategoryMapper {
     }
 
     public static Category toDomain(CategoryEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         Category category = new Category();
         category.setId(entity.getId());
         category.setName(entity.getCategoryName());

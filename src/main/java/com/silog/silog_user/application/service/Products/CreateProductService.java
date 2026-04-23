@@ -7,6 +7,8 @@ import com.silog.silog_user.domain.port.in.Products.CreateProductUseCase;
 import com.silog.silog_user.domain.port.out.ProductRepositoryPort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 
 public class CreateProductService  implements CreateProductUseCase {
@@ -23,6 +25,8 @@ public class CreateProductService  implements CreateProductUseCase {
 
         if(product.getStatus() == null) product.setStatus(true);
         if(product.getUpdatedBy() == null) product.setUpdatedBy(product.getCreatedBy());
+        product.setCreatedAt(LocalDateTime.now());
+        product.setUpdatedAt(LocalDateTime.now());
         return productRepositoryPort.save(product);
     }
 }

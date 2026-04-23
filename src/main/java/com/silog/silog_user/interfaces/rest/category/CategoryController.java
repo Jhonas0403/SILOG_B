@@ -3,6 +3,8 @@ package com.silog.silog_user.interfaces.rest.category;
 import com.silog.silog_user.domain.model.Category;
 import com.silog.silog_user.domain.port.in.Category.CreateCategoryUseCase;
 import com.silog.silog_user.domain.port.in.Category.GetCategoryUseCase;
+import com.silog.silog_user.interfaces.rest.category.dto.CategoryRequest;
+import com.silog.silog_user.interfaces.rest.category.dto.CategoryResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,14 +22,14 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getCategories() {
+    public ResponseEntity<List<CategoryResponse>> getCategories() {
         List<Category> categories = getCategoryUseCase.getCategories();
-        return ResponseEntity.ok(categories);
+        return ResponseEntity.ok(categories.stream().map(CategoryResponse::fromDomain).toList());
     }
 
     @PostMapping
-    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
-        Category crateCategory = createCategoryUseCase.create(category);
-        return ResponseEntity.ok(crateCategory);
+    public ResponseEntity<CategoryResponse> addCategory(@RequestBody CategoryRequest category) {
+        Category crateCategory = createCategoryUseCase.create(category.toDomain());
+        return ResponseEntity.ok(CategoryResponse.fromDomain(crateCategory));
     }
 }

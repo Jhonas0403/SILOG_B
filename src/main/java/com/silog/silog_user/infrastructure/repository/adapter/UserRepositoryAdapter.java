@@ -5,7 +5,6 @@ import com.silog.silog_user.domain.port.out.UserRepositoryPort;
 import com.silog.silog_user.infrastructure.entity.UserEntity;
 import com.silog.silog_user.infrastructure.mapper.UserMapper;
 import com.silog.silog_user.infrastructure.repository.jpa.JpaUserRepository;
-import com.silog.silog_user.interfaces.rest.user.dto.UpdateRequestUser;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -35,8 +34,9 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public User findById(UUID id) {
-        UserEntity entity = jpaUserRepository.findById(id).orElse(null);
-        return UserMapper.toDomain(entity);
+        return jpaUserRepository.findById(id)
+                .map(UserMapper::toDomain)
+                .orElse(null);
     }
 
     @Override
@@ -47,7 +47,6 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public User patch(User user) {
-        System.out.println("address" + user.getAddress());
         UserEntity entity = UserMapper.toEntity(user);
         return UserMapper.toDomain(jpaUserRepository.save(entity));
      }

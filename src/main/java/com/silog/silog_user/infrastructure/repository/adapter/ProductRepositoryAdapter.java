@@ -26,8 +26,9 @@ public class ProductRepositoryAdapter  implements ProductRepositoryPort {
     }
 
     public Product findById(UUID id){
-        ProductEntity product = jpaProductRepository.findById(id).orElse(null);
-        return ProductMapper.toDomain(product);
+        return jpaProductRepository.findById(id)
+                .map(ProductMapper::toDomain)
+                .orElse(null);
     }
 
     public Product save(Product product) {

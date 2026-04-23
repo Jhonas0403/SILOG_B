@@ -1,5 +1,7 @@
 package com.silog.silog_user.interfaces.rest.user.dto;
 
+import com.silog.silog_user.domain.model.UserPatch;
+
 public class UpdateRequestUser {
 
     private String phone;
@@ -37,5 +39,14 @@ public class UpdateRequestUser {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public UserPatch toDomain() {
+        UserPatch userPatch = new UserPatch();
+        userPatch.setPhone(phone);
+        userPatch.setAddress(address);
+        userPatch.setPassword(password);
+        userPatch.setStatus(status);
+        return userPatch;
     }
 }

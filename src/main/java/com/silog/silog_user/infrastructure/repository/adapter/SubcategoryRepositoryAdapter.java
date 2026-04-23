@@ -1,6 +1,5 @@
 package com.silog.silog_user.infrastructure.repository.adapter;
 
-import com.silog.silog_user.domain.model.Category;
 import com.silog.silog_user.domain.model.Subcategory;
 import com.silog.silog_user.domain.port.out.SubcategoryRepositoryPort;
 import com.silog.silog_user.infrastructure.entity.SubcategoryEntity;

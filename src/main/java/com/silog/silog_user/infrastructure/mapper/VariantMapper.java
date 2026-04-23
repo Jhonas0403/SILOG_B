@@ -25,6 +25,9 @@ public class VariantMapper {
     }
 
     public static Variant toDomain(VariantEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         Variant variant = new Variant();
         variant.setId(entity.getVariantId());
         variant.setProductId(entity.getVariantProductId());

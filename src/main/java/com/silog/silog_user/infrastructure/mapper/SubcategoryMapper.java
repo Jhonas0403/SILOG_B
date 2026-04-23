@@ -20,6 +20,9 @@ public class SubcategoryMapper {
     }
 
     public static Subcategory toDomain(SubcategoryEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         Subcategory subcategory = new Subcategory();
         subcategory.setId(entity.getSubcategoryId());
         subcategory.setName(entity.getSubcategoryName());

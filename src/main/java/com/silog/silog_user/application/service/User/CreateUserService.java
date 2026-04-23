@@ -5,6 +5,8 @@ import com.silog.silog_user.domain.port.in.User.CreateUserUseCase;
 import com.silog.silog_user.domain.port.out.UserRepositoryPort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class CreateUserService implements CreateUserUseCase {
 
@@ -17,8 +19,11 @@ public class CreateUserService implements CreateUserUseCase {
 
     @Override
     public User create(User user) {
-        User savedUser = userRepositoryPort.save(user);
-        return savedUser;
-
+        if (user.getStatus() == null) {
+            user.setStatus(true);
+        }
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
+        return userRepositoryPort.save(user);
     }
 }

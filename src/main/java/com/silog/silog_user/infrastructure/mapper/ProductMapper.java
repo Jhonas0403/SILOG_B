@@ -20,6 +20,9 @@ public class ProductMapper {
     }
 
     public static Product toDomain(ProductEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         Product product = new Product();
         product.setId(entity.getId());
         product.setName(entity.getProductName());

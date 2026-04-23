@@ -1,6 +1,5 @@
 package com.silog.silog_user.infrastructure.entity;
 
-import com.silog.silog_user.domain.model.Subcategory;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -10,7 +9,7 @@ import java.util.UUID;
 @Table(name = "subcategories")
 public class SubcategoryEntity {
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "subcategory_id", nullable = false,updatable = false)
     private UUID subcategoryId;
 

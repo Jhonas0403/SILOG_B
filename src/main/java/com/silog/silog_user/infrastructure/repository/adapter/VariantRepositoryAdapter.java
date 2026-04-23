@@ -8,6 +8,7 @@ import com.silog.silog_user.infrastructure.repository.jpa.JpaVariantRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class VariantRepositoryAdapter implements VariantRepositoryPort {
@@ -28,6 +29,13 @@ public class VariantRepositoryAdapter implements VariantRepositoryPort {
         VariantEntity variantEntity = VariantMapper.toEntity(variant);
         variantEntity = jpaVariantRepository.save(variantEntity);
         return VariantMapper.toDomain(variantEntity);
+    }
+
+    @Override
+    public Variant findById(UUID id) {
+        return jpaVariantRepository.findById(id)
+                .map(VariantMapper::toDomain)
+                .orElse(null);
     }
 
     @Override
