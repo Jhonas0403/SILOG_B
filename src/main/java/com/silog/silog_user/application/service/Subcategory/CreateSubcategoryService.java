@@ -16,7 +16,7 @@ public class CreateSubcategoryService implements CreateSubcategoryUseCase {
     }
     @Override
     public Subcategory create(Subcategory subcategory) {
-        Integer nextOrder = subcategoryRepositoryPort.findMaxOrder() + 1;
+        Integer nextOrder = subcategoryRepositoryPort.findMaxOrderByStoreId(subcategory.getStoreId()) + 1;
         if(subcategory.getStatus() == null){
             subcategory.setStatus(true);
         }

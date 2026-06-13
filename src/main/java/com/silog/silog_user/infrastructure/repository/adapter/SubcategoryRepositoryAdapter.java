@@ -8,6 +8,7 @@ import com.silog.silog_user.infrastructure.repository.jpa.JpaSubcategoryReposito
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class SubcategoryRepositoryAdapter implements SubcategoryRepositoryPort {
@@ -29,7 +30,13 @@ public class SubcategoryRepositoryAdapter implements SubcategoryRepositoryPort {
     }
 
     @Override
-    public Integer findMaxOrder() {
-        return jpaRepository.findMaxSubcategoryOrder();
+    public List<Subcategory> findByStoreId(UUID storeId) {
+        return jpaRepository.findByStoreIdOrderBySubcategoryOrderAsc(storeId)
+                .stream().map(SubcategoryMapper::toDomain).toList();
+    }
+
+    @Override
+    public Integer findMaxOrderByStoreId(UUID storeId) {
+        return jpaRepository.findMaxSubcategoryOrderByStoreId(storeId);
     }
 }

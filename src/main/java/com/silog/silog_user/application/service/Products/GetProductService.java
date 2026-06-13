@@ -6,6 +6,7 @@ import com.silog.silog_user.domain.port.out.ProductRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GetProductService implements GetProductUseCase {
@@ -16,7 +17,8 @@ public class GetProductService implements GetProductUseCase {
     }
 
     @Override
-    public List<Product> getProducts() {
+    public List<Product> getProducts(UUID storeId) {
+        if (storeId != null) return productRepositoryPort.findByStoreId(storeId);
         return productRepositoryPort.findAll();
     }
 }

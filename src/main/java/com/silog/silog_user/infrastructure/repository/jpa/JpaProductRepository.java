@@ -10,7 +10,8 @@ import java.util.UUID;
 public interface JpaProductRepository extends JpaRepository<ProductEntity, UUID> {
 
     List<ProductEntity> findAllByOrderByProductOrderAsc();
-    @Query("SELECT COALESCE(MAX(p.productOrder), 0) FROM ProductEntity p")
-    Integer findMaxProductOrder();
+    List<ProductEntity> findByStoreIdOrderByProductOrderAsc(UUID storeId);
 
+    @Query("SELECT COALESCE(MAX(p.productOrder), 0) FROM ProductEntity p WHERE p.storeId = :storeId")
+    Integer findMaxProductOrderByStoreId(@org.springframework.data.repository.query.Param("storeId") UUID storeId);
 }

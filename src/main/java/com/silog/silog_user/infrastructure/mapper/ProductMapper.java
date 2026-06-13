@@ -8,6 +8,7 @@ public class ProductMapper {
     public static ProductEntity toProductEntity(Product product) {
         ProductEntity entity = new ProductEntity();
         entity.setId(product.getId());
+        entity.setStoreId(product.getStoreId());
         entity.setProductName(product.getName());
         entity.setProductBrandId(product.getBrandId());
         entity.setProductOrder(product.getOrder());
@@ -25,6 +26,7 @@ public class ProductMapper {
         }
         Product product = new Product();
         product.setId(entity.getId());
+        product.setStoreId(entity.getStoreId());
         product.setName(entity.getProductName());
         product.setBrandId(entity.getProductBrandId());
         product.setStatus(entity.getProductStatus());

@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface JpaExpenseRepository extends JpaRepository<ExpenseEntity, UUID> {
     List<ExpenseEntity> findAllByOrderByExpenseDateDescCreatedAtDesc();
+    List<ExpenseEntity> findByStoreIdOrderByExpenseDateDescCreatedAtDesc(UUID storeId);
 }

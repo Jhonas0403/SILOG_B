@@ -6,6 +6,7 @@ import com.silog.silog_user.domain.port.out.InventoryMovementRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GetInventoryMovementsService implements GetInventoryMovementsUseCase {
@@ -16,7 +17,8 @@ public class GetInventoryMovementsService implements GetInventoryMovementsUseCas
     }
 
     @Override
-    public List<InventoryMovement> getInventoryMovements() {
+    public List<InventoryMovement> getInventoryMovements(UUID storeId) {
+        if (storeId != null) return inventoryMovementRepositoryPort.findByStoreId(storeId);
         return inventoryMovementRepositoryPort.findAll();
     }
 }

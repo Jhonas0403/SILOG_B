@@ -39,8 +39,13 @@ public class VariantRepositoryAdapter implements VariantRepositoryPort {
     }
 
     @Override
-    public Integer findMaxOrder(){
-        return jpaVariantRepository.findMaxVariantOrder();
+    public List<Variant> findByStoreId(UUID storeId) {
+        return jpaVariantRepository.findByStoreIdOrderByVariantOrderAsc(storeId)
+                .stream().map(VariantMapper::toDomain).toList();
     }
 
+    @Override
+    public Integer findMaxOrderByStoreId(UUID storeId) {
+        return jpaVariantRepository.findMaxVariantOrderByStoreId(storeId);
+    }
 }

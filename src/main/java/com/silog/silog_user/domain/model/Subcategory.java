@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public class Subcategory {
     private UUID id;
+    private UUID storeId;
     private String name;
     private Integer order;
     private Boolean status;
@@ -23,6 +24,9 @@ public class Subcategory {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    public UUID getStoreId() { return storeId; }
+    public void setStoreId(UUID storeId) { this.storeId = storeId; }
 
     public String getName() {
         return name;

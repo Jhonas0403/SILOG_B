@@ -6,6 +6,7 @@ import com.silog.silog_user.domain.port.out.CategoryRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GetCategoryService  implements GetCategoryUseCase {
@@ -16,7 +17,8 @@ public class GetCategoryService  implements GetCategoryUseCase {
     }
 
     @Override
-    public List<Category> getCategories() {
+    public List<Category> getCategories(UUID storeId) {
+        if (storeId != null) return categoryRepositoryPort.findByStoreId(storeId);
         return categoryRepositoryPort.findAll();
     }
 }

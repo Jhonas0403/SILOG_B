@@ -1,102 +1,39 @@
 package com.silog.silog_user.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Fixes applied:
+ * - Added Lombok annotations — removes ~65 lines of manual code
+ * - Extends AuditableEntity — audit fields now managed automatically
+ * - Added nullable = false and length constraints
+ */
 @Entity
-@Table(name="categories")
-public class CategoryEntity {
+@Table(name = "categories")
+@Getter
+@Setter
+@NoArgsConstructor
+public class CategoryEntity extends AuditableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "category_id", nullable = false,updatable = false)
+    @Column(name = "category_id", nullable = false, updatable = false)
     private UUID id;
 
-    @Column(name="category_name")
+    @Column(name = "category_name", nullable = false, length = 100)
     private String categoryName;
 
-    @Column(name = "category_status")
+    @Column(name = "category_status", nullable = false)
     private Boolean categoryStatus;
 
-    @Column (name = "category_order")
+    @Column(name = "category_order")
     private Integer categoryOrder;
 
-    @Column(name = "created_by")
-    private UUID createdBy;
-
-    @Column(name = "updated_by")
-    private UUID updatedBy;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    public CategoryEntity() {}
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public Boolean getCategoryStatus() {
-        return categoryStatus;
-    }
-
-    public void setCategoryStatus(Boolean categoryStatus) {
-        this.categoryStatus = categoryStatus;
-    }
-
-    public Integer getCategoryOrder() {
-        return categoryOrder;
-    }
-
-    public void setCategoryOrder(Integer categoryOrder) {
-        this.categoryOrder = categoryOrder;
-    }
-
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    @Column(name = "store_id")
+    private UUID storeId;
 }

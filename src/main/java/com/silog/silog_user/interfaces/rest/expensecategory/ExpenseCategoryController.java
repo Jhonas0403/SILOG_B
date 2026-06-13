@@ -7,6 +7,9 @@ import com.silog.silog_user.domain.port.in.ExpenseCategory.GetExpenseCategoryByI
 import com.silog.silog_user.interfaces.rest.expensecategory.dto.ExpenseCategoryRequest;
 import com.silog.silog_user.interfaces.rest.expensecategory.dto.ExpenseCategoryResponse;
 import org.springframework.http.ResponseEntity;
+import com.silog.silog_user.infrastructure.security.UserPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +34,8 @@ public class ExpenseCategoryController {
 
     @GetMapping
     public ResponseEntity<List<ExpenseCategoryResponse>> getExpenseCategories() {
-        List<ExpenseCategory> expenseCategories = getExpenseCategoriesUseCase.getExpenseCategories();
+        UUID storeId = getStoreIdFromJwt();
+        List<ExpenseCategory> expenseCategories = getExpenseCategoriesUseCase.getExpenseCategories(storeId);
         return ResponseEntity.ok(expenseCategories.stream().map(ExpenseCategoryResponse::fromDomain).toList());
     }
 
@@ -45,7 +49,15 @@ public class ExpenseCategoryController {
     public ResponseEntity<ExpenseCategoryResponse> createExpenseCategory(
             @RequestBody ExpenseCategoryRequest expenseCategory
     ) {
-        ExpenseCategory created = createExpenseCategoryUseCase.create(expenseCategory.toDomain());
+        ExpenseCategory dom = expenseCategory.toDomain();
+        dom.setStoreId(getStoreIdFromJwt());
+        ExpenseCategory created = createExpenseCategoryUseCase.create(dom);
         return ResponseEntity.ok(ExpenseCategoryResponse.fromDomain(created));
+    }
+
+    private UUID getStoreIdFromJwt() {
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
+        return principal.getStoreId() != null ? UUID.fromString(principal.getStoreId()) : null;
     }
 }

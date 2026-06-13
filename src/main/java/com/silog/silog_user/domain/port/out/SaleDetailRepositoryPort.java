@@ -9,4 +9,5 @@ public interface SaleDetailRepositoryPort {
     SaleDetail save(SaleDetail saleDetail);
     List<SaleDetail> findAll();
     SaleDetail findById(UUID id);
+    List<SaleDetail> findByStoreId(UUID storeId);
 }

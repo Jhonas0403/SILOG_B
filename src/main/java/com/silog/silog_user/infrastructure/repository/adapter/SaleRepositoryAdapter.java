@@ -7,8 +7,12 @@ import com.silog.silog_user.infrastructure.mapper.SaleMapper;
 import com.silog.silog_user.infrastructure.repository.jpa.JpaSaleRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 public class SaleRepositoryAdapter implements SaleRepositoryPort {
@@ -37,5 +41,23 @@ public class SaleRepositoryAdapter implements SaleRepositoryPort {
         return jpaSaleRepository.findById(id)
                 .map(SaleMapper::toDomain)
                 .orElse(null);
+    }
+
+    @Override
+    public List<Sale> findByStoreId(UUID storeId) {
+        return jpaSaleRepository.findByStoreIdOrderBySaleDateDesc(storeId)
+                .stream()
+                .map(SaleMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    public Map<UUID, BigDecimal> sumTotalByPaymentMethodForStore(UUID storeId, ZonedDateTime from, ZonedDateTime to) {
+        return jpaSaleRepository.sumTotalByPaymentMethod(storeId, from, to)
+                .stream()
+                .collect(Collectors.toMap(
+                        p -> p.getPaymentMethodId(),
+                        p -> p.getTotal()
+                ));
     }
 }

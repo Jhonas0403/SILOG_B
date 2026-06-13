@@ -1,169 +1,62 @@
 package com.silog.silog_user.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.UUID;
 
+/**
+ * Fixes applied:
+ * - Added Lombok annotations
+ * - Extends AuditableEntity
+ * - BUG FIX: variantPurchasePrice, variantSalePrice, variantMinSalePrice changed from Double to BigDecimal
+ *   Reason: Double causes floating-point rounding errors with money (e.g. 0.1 + 0.2 = 0.30000000000000004)
+ *   BigDecimal is exact and is the standard for financial amounts
+ * - Added nullable = false and length/precision constraints
+ */
 @Entity
 @Table(name = "product_variants")
-public class VariantEntity {
+@Getter
+@Setter
+@NoArgsConstructor
+public class VariantEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "variant_id", nullable = false, updatable = false)
     private UUID variantId;
 
-    @Column(name = "variant_product_id")
+    @Column(name = "variant_product_id", nullable = false)
     private UUID variantProductId;
 
-    @Column(name = "variant_name")
+    @Column(name = "variant_name", nullable = false, length = 150)
     private String variantName;
 
-    @Column(name = "variant_barcode")
+    @Column(name = "variant_barcode", unique = true, length = 100)
     private String variantBarcode;
 
-    @Column(name = "variant_stock")
+    @Column(name = "variant_stock", nullable = false)
     private Integer variantStock;
 
-    @Column(name = "variant_purchase_price")
-    private Double variantPurchasePrice;
+    // BUG FIX: was Double — changed to BigDecimal for exact monetary arithmetic
+    @Column(name = "variant_purchase_price", nullable = false, precision = 12, scale = 2)
+    private BigDecimal variantPurchasePrice;
 
-    @Column(name = "variant_sale_price")
-    private Double variantSalePrice;
+    @Column(name = "variant_sale_price", nullable = false, precision = 12, scale = 2)
+    private BigDecimal variantSalePrice;
 
-    @Column (name = "variant_min_sale_price")
-    private Double variantMinSalePrice;
+    @Column(name = "variant_min_sale_price", precision = 12, scale = 2)
+    private BigDecimal variantMinSalePrice;
 
-    @Column (name = "variant_order")
+    @Column(name = "variant_order")
     private Integer variantOrder;
 
-    @Column (name = "variant_status")
+    @Column(name = "variant_status", nullable = false)
     private Boolean variantStatus;
 
-    @Column(name = "created_by")
-    private UUID createdBy;
-
-    @Column(name = "updated_by")
-    private UUID updatedBy;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    public VariantEntity() {}
-
-    public UUID getVariantId() {
-        return variantId;
-    }
-
-    public void setVariantId(UUID variantId) {
-        this.variantId = variantId;
-    }
-
-    public UUID getVariantProductId() {
-        return variantProductId;
-    }
-
-    public void setVariantProductId(UUID variantProductId) {
-        this.variantProductId = variantProductId;
-    }
-
-    public String getVariantName() {
-        return variantName;
-    }
-
-    public void setVariantName(String variantName) {
-        this.variantName = variantName;
-    }
-
-    public String getVariantBarcode() {
-        return variantBarcode;
-    }
-
-    public void setVariantBarcode(String variantBarcode) {
-        this.variantBarcode = variantBarcode;
-    }
-
-    public Integer getVariantStock() {
-        return variantStock;
-    }
-
-    public void setVariantStock(Integer variantStock) {
-        this.variantStock = variantStock;
-    }
-
-    public Double getVariantPurchasePrice() {
-        return variantPurchasePrice;
-    }
-
-    public void setVariantPurchasePrice(Double variantPurchasePrice) {
-        this.variantPurchasePrice = variantPurchasePrice;
-    }
-
-    public Double getVariantSalePrice() {
-        return variantSalePrice;
-    }
-
-    public void setVariantSalePrice(Double variantSalePrice) {
-        this.variantSalePrice = variantSalePrice;
-    }
-
-    public Double getVariantMinSalePrice() {
-        return variantMinSalePrice;
-    }
-
-    public void setVariantMinSalePrice(Double variantMinSalePrice) {
-        this.variantMinSalePrice = variantMinSalePrice;
-    }
-
-    public Integer getVariantOrder() {
-        return variantOrder;
-    }
-
-    public void setVariantOrder(Integer variantOrder) {
-        this.variantOrder = variantOrder;
-    }
-
-    public Boolean getVariantStatus() {
-        return variantStatus;
-    }
-
-    public void setVariantStatus(Boolean variantStatus) {
-        this.variantStatus = variantStatus;
-    }
-
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    @Column(name = "store_id")
+    private UUID storeId;
 }

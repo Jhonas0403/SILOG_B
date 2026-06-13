@@ -1,124 +1,48 @@
 package com.silog.silog_user.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Fixes applied:
+ * - Added Lombok annotations
+ * - Extends AuditableEntity
+ * - BUG FIX: field was named 'categoryStatus' (mapped to brand_status column) — renamed to 'brandStatus'
+ *   The old getter getCategoryStatus() was causing confusion with CategoryEntity
+ * - Added nullable = false and length constraints
+ */
 @Entity
 @Table(name = "brands")
-public class BrandEntity {
+@Getter
+@Setter
+@NoArgsConstructor
+public class BrandEntity extends AuditableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "brand_id", nullable = false, updatable = false)
     private UUID id;
 
-    @Column(name="brand_name")
+    @Column(name = "brand_name", nullable = false, length = 100)
     private String brandName;
 
-    @Column(name = "brand_description")
+    @Column(name = "brand_description", length = 255)
     private String brandDescription;
 
     @Column(name = "brand_subcategory_id")
     private UUID brandSubcategoryId;
 
-    @Column(name = "brand_status")
-    private Boolean categoryStatus;
+    // BUG FIX: was 'categoryStatus' — renamed to 'brandStatus' (matches column brand_status)
+    @Column(name = "brand_status", nullable = false)
+    private Boolean brandStatus;
 
     @Column(name = "brand_order")
     private Integer brandOrder;
 
-    @Column(name = "created_by")
-    private UUID createdBy;
-
-    @Column(name = "updated_by")
-    private UUID updatedBy;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    public BrandEntity() {}
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getBrandName() {
-        return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
-
-    public String getBrandDescription() {
-        return brandDescription;
-    }
-
-    public void setBrandDescription(String brandDescription) {
-        this.brandDescription = brandDescription;
-    }
-
-    public UUID getBrandSubcategoryId() {
-        return brandSubcategoryId;
-    }
-
-    public void setBrandSubcategoryId(UUID brandCategoryId) {
-        this.brandSubcategoryId = brandCategoryId;
-    }
-
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Boolean getCategoryStatus() {
-        return categoryStatus;
-    }
-
-    public void setCategoryStatus(Boolean categoryStatus) {
-        this.categoryStatus = categoryStatus;
-    }
-
-    public Integer getBrandOrder() {
-        return brandOrder;
-    }
-
-    public void setBrandOrder(Integer brandOrder) {
-        this.brandOrder = brandOrder;
-    }
-
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    @Column(name = "store_id")
+    private UUID storeId;
 }

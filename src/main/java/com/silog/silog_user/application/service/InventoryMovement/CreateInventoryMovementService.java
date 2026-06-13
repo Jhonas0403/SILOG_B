@@ -37,21 +37,13 @@ public class CreateInventoryMovementService implements CreateInventoryMovementUs
         int currentStock = variant.getStock() == null ? 0 : variant.getStock();
         int newStock = calculateNewStock(currentStock, inventoryMovement);
         variant.setStock(newStock);
-        variant.setUpdatedAt(LocalDateTime.now());
-        if (inventoryMovement.getCreatedBy() != null) {
-            variant.setUpdatedBy(inventoryMovement.getCreatedBy());
-        }
+        // Note: updatedAt / updatedBy are set automatically by AuditingEntityListener
         variantRepositoryPort.save(variant);
 
         if (inventoryMovement.getStatus() == null) {
             inventoryMovement.setStatus(true);
         }
-        if (inventoryMovement.getUpdatedBy() == null) {
-            inventoryMovement.setUpdatedBy(inventoryMovement.getCreatedBy());
-        }
-        inventoryMovement.setCreatedAt(LocalDateTime.now());
-        inventoryMovement.setUpdatedAt(LocalDateTime.now());
-
+        // Note: audit fields are set automatically — do NOT set manually
         return inventoryMovementRepositoryPort.save(inventoryMovement);
     }
 

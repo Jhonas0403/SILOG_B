@@ -4,6 +4,7 @@ import com.silog.silog_user.domain.model.SaleDetail;
 import com.silog.silog_user.infrastructure.entity.SaleDetailEntity;
 
 public class SaleDetailMapper {
+
     public static SaleDetailEntity toEntity(SaleDetail saleDetail) {
         SaleDetailEntity entity = new SaleDetailEntity();
         entity.setId(saleDetail.getId());
@@ -14,10 +15,8 @@ public class SaleDetailMapper {
         entity.setPurchasePrice(saleDetail.getPurchasePrice());
         entity.setSubtotal(saleDetail.getSubtotal());
         entity.setStatus(saleDetail.getStatus());
-        entity.setCreatedBy(saleDetail.getCreatedBy());
-        entity.setUpdatedBy(saleDetail.getUpdatedBy());
-        entity.setCreatedAt(saleDetail.getCreatedAt());
-        entity.setUpdatedAt(saleDetail.getUpdatedAt());
+        // Note: createdBy / updatedBy / createdAt / updatedAt
+        // are now handled automatically by AuditingEntityListener — do not set manually
         return entity;
     }
 
@@ -34,10 +33,6 @@ public class SaleDetailMapper {
         saleDetail.setPurchasePrice(entity.getPurchasePrice());
         saleDetail.setSubtotal(entity.getSubtotal());
         saleDetail.setStatus(entity.getStatus());
-        saleDetail.setCreatedBy(entity.getCreatedBy());
-        saleDetail.setUpdatedBy(entity.getUpdatedBy());
-        saleDetail.setCreatedAt(entity.getCreatedAt());
-        saleDetail.setUpdatedAt(entity.getUpdatedAt());
         return saleDetail;
     }
 }

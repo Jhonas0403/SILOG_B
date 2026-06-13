@@ -6,6 +6,7 @@ import com.silog.silog_user.interfaces.rest.user.dto.UpdateRequestUser;
 import com.silog.silog_user.interfaces.rest.user.dto.UserRequest;
 import com.silog.silog_user.interfaces.rest.user.dto.UserResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class UserController {
         this.patchUserUseCase = patchUserUseCase;
     }
 
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'ADMIN')")
     @PostMapping
     public ResponseEntity<UserResponse> create(@RequestBody UserRequest user) {
         User createdUser = createUserUseCase.create(user.toDomain());

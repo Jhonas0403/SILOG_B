@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface JpaExpenseCategoryRepository extends JpaRepository<ExpenseCategoryEntity, UUID> {
     List<ExpenseCategoryEntity> findAllByOrderByNameAsc();
+    List<ExpenseCategoryEntity> findByStoreIdOrderByNameAsc(UUID storeId);
 }

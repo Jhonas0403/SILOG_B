@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface JpaInventoryMovementRepository extends JpaRepository<InventoryMovementEntity, UUID> {
     List<InventoryMovementEntity> findAllByOrderByCreatedAtDesc();
+    List<InventoryMovementEntity> findByStoreIdOrderByCreatedAtDesc(UUID storeId);
 }

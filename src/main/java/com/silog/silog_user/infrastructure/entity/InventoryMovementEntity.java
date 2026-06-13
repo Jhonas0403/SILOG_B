@@ -1,13 +1,27 @@
 package com.silog.silog_user.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.UUID;
 
+/**
+ * Fixes applied:
+ * - Added Lombok annotations
+ * - Extends AuditableEntity
+ * - BUG FIX: purchasePrice and salePrice changed from Double to BigDecimal
+ * - Added nullable = false and length constraints on movement_type and reference_type
+ */
 @Entity
 @Table(name = "inventory_movements")
-public class InventoryMovementEntity {
+@Getter
+@Setter
+@NoArgsConstructor
+public class InventoryMovementEntity extends AuditableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "movement_id", nullable = false, updatable = false)
@@ -16,19 +30,22 @@ public class InventoryMovementEntity {
     @Column(name = "variant_id", nullable = false)
     private UUID variantId;
 
-    @Column(name = "movement_type", nullable = false)
+    // Values must be 'IN' or 'OUT' — enforced by CHECK constraint in migration script
+    @Column(name = "movement_type", nullable = false, length = 10)
     private String movementType;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @Column(name = "purchase_price")
-    private Double purchasePrice;
+    // BUG FIX: was Double — changed to BigDecimal
+    @Column(name = "purchase_price", precision = 12, scale = 2)
+    private BigDecimal purchasePrice;
 
-    @Column(name = "sale_price")
-    private Double salePrice;
+    @Column(name = "sale_price", precision = 12, scale = 2)
+    private BigDecimal salePrice;
 
-    @Column(name = "reference_type")
+    // Values must be 'PURCHASE' or 'SALE' — enforced by CHECK constraint
+    @Column(name = "reference_type", length = 20)
     private String referenceType;
 
     @Column(name = "reference_id")
@@ -37,119 +54,6 @@ public class InventoryMovementEntity {
     @Column(name = "movement_status", nullable = false)
     private Boolean status;
 
-    @Column(name = "created_by")
-    private UUID createdBy;
-
-    @Column(name = "updated_by")
-    private UUID updatedBy;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getVariantId() {
-        return variantId;
-    }
-
-    public void setVariantId(UUID variantId) {
-        this.variantId = variantId;
-    }
-
-    public String getMovementType() {
-        return movementType;
-    }
-
-    public void setMovementType(String movementType) {
-        this.movementType = movementType;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getPurchasePrice() {
-        return purchasePrice;
-    }
-
-    public void setPurchasePrice(Double purchasePrice) {
-        this.purchasePrice = purchasePrice;
-    }
-
-    public Double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(Double salePrice) {
-        this.salePrice = salePrice;
-    }
-
-    public String getReferenceType() {
-        return referenceType;
-    }
-
-    public void setReferenceType(String referenceType) {
-        this.referenceType = referenceType;
-    }
-
-    public UUID getReferenceId() {
-        return referenceId;
-    }
-
-    public void setReferenceId(UUID referenceId) {
-        this.referenceId = referenceId;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    @Column(name = "store_id")
+    private UUID storeId;
 }

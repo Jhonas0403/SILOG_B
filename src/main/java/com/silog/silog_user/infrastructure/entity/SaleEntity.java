@@ -1,100 +1,49 @@
 package com.silog.silog_user.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
+/**
+ * Fixes applied:
+ * - Added Lombok annotations
+ * - Extends AuditableEntity
+ * - BUG FIX: 'total' changed from Double to BigDecimal (money must be exact)
+ * - Added nullable = false constraints
+ */
 @Entity
 @Table(name = "sales")
-public class SaleEntity {
+@Getter
+@Setter
+@NoArgsConstructor
+public class SaleEntity extends AuditableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "sale_id", nullable = false, updatable = false)
     private UUID id;
 
     @Column(name = "sale_date")
-    private LocalDateTime saleDate;
+    private ZonedDateTime saleDate;
 
-    @Column(name = "total", nullable = false)
-    private Double total;
+    // BUG FIX: was Double — changed to BigDecimal for exact monetary arithmetic
+    @Column(name = "total", nullable = false, precision = 12, scale = 2)
+    private BigDecimal total;
 
     @Column(name = "sale_status", nullable = false)
     private Boolean status;
 
-    @Column(name = "created_by")
-    private UUID createdBy;
+    @Column(name = "store_id")
+    private UUID storeId;
 
-    @Column(name = "updated_by")
-    private UUID updatedBy;
+    @Column(name = "payment_method_id", nullable = false)
+    private UUID paymentMethodId;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getSaleDate() {
-        return saleDate;
-    }
-
-    public void setSaleDate(LocalDateTime saleDate) {
-        this.saleDate = saleDate;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    @Column(name = "operation_code", length = 100)
+    private String operationCode;
 }

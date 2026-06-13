@@ -6,5 +6,7 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create-drop   # In tests, Hibernate creates the schema from entities
     open-in-view: false
+  flyway:
+    enabled: false            # Flyway is disabled in tests — H2 handles schema via ddl-auto

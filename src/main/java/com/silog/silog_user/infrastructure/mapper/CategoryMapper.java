@@ -8,6 +8,7 @@ public class CategoryMapper {
     public static CategoryEntity toEntity(Category category) {
         CategoryEntity entity = new CategoryEntity();
         entity.setId(category.getId());
+        entity.setStoreId(category.getStoreId());
         entity.setCategoryName(category.getName());
         entity.setCategoryStatus(category.getStatus());
         entity.setCategoryOrder(category.getOrder());
@@ -24,6 +25,7 @@ public class CategoryMapper {
         }
         Category category = new Category();
         category.setId(entity.getId());
+        category.setStoreId(entity.getStoreId());
         category.setName(entity.getCategoryName());
         category.setStatus(entity.getCategoryStatus());
         category.setOrder(entity.getCategoryOrder());

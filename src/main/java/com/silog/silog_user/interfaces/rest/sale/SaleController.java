@@ -4,10 +4,15 @@ import com.silog.silog_user.domain.model.Sale;
 import com.silog.silog_user.domain.port.in.Sale.CreateSaleUseCase;
 import com.silog.silog_user.domain.port.in.Sale.GetSaleByIdUseCase;
 import com.silog.silog_user.domain.port.in.Sale.GetSalesUseCase;
+import com.silog.silog_user.infrastructure.security.UserPrincipal;
 import com.silog.silog_user.interfaces.rest.sale.dto.SaleRequest;
 import com.silog.silog_user.interfaces.rest.sale.dto.SaleResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,7 +36,8 @@ public class SaleController {
 
     @GetMapping
     public ResponseEntity<List<SaleResponse>> getSales() {
-        List<Sale> sales = getSalesUseCase.getSales();
+        UUID storeId = getStoreIdFromJwt();
+        List<Sale> sales = getSalesUseCase.getSales(storeId);
         return ResponseEntity.ok(sales.stream().map(SaleResponse::fromDomain).toList());
     }
 
@@ -42,8 +48,21 @@ public class SaleController {
     }
 
     @PostMapping
-    public ResponseEntity<SaleResponse> createSale(@RequestBody SaleRequest sale) {
-        Sale createdSale = createSaleUseCase.create(sale.toDomain());
-        return ResponseEntity.ok(SaleResponse.fromDomain(createdSale));
+    public ResponseEntity<SaleResponse> createSale(@RequestBody SaleRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
+
+        Sale sale = request.toDomain();
+        if (principal.getStoreId() != null) {
+            sale.setStoreId(UUID.fromString(principal.getStoreId()));
+        }
+
+        return ResponseEntity.ok(SaleResponse.fromDomain(createSaleUseCase.create(sale)));
+    }
+
+    private UUID getStoreIdFromJwt() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
+        return principal.getStoreId() != null ? UUID.fromString(principal.getStoreId()) : null;
     }
 }

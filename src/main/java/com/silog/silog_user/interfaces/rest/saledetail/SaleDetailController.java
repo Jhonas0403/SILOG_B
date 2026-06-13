@@ -4,9 +4,12 @@ import com.silog.silog_user.domain.model.SaleDetail;
 import com.silog.silog_user.domain.port.in.SaleDetail.CreateSaleDetailUseCase;
 import com.silog.silog_user.domain.port.in.SaleDetail.GetSaleDetailByIdUseCase;
 import com.silog.silog_user.domain.port.in.SaleDetail.GetSaleDetailsUseCase;
+import com.silog.silog_user.infrastructure.security.UserPrincipal;
 import com.silog.silog_user.interfaces.rest.saledetail.dto.SaleDetailRequest;
 import com.silog.silog_user.interfaces.rest.saledetail.dto.SaleDetailResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +34,8 @@ public class SaleDetailController {
 
     @GetMapping
     public ResponseEntity<List<SaleDetailResponse>> getSaleDetails() {
-        List<SaleDetail> saleDetails = getSaleDetailsUseCase.getSaleDetails();
+        UUID storeId = getStoreIdFromJwt();
+        List<SaleDetail> saleDetails = getSaleDetailsUseCase.getSaleDetails(storeId);
         return ResponseEntity.ok(saleDetails.stream().map(SaleDetailResponse::fromDomain).toList());
     }
 
@@ -45,5 +49,11 @@ public class SaleDetailController {
     public ResponseEntity<SaleDetailResponse> createSaleDetail(@RequestBody SaleDetailRequest saleDetail) {
         SaleDetail createdSaleDetail = createSaleDetailUseCase.create(saleDetail.toDomain());
         return ResponseEntity.ok(SaleDetailResponse.fromDomain(createdSaleDetail));
+    }
+
+    private UUID getStoreIdFromJwt() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
+        return principal.getStoreId() != null ? UUID.fromString(principal.getStoreId()) : null;
     }
 }

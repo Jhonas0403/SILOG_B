@@ -33,6 +33,12 @@ public class InventoryMovementRepositoryAdapter implements InventoryMovementRepo
     }
 
     @Override
+    public List<InventoryMovement> findByStoreId(UUID storeId) {
+        return jpaInventoryMovementRepository.findByStoreIdOrderByCreatedAtDesc(storeId)
+                .stream().map(InventoryMovementMapper::toDomain).toList();
+    }
+
+    @Override
     public InventoryMovement findById(UUID id) {
         return jpaInventoryMovementRepository.findById(id)
                 .map(InventoryMovementMapper::toDomain)

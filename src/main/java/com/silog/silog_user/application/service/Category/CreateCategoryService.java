@@ -15,7 +15,7 @@ public class CreateCategoryService implements CreateCategoryUseCase {
     }
     @Override
     public Category create(Category category) {
-        Integer nextOrder = categoryRepository.findMaxOrder() + 1;
+        Integer nextOrder = categoryRepository.findMaxOrderByStoreId(category.getStoreId()) + 1;
         if (category.getStatus() == null) {
             category.setStatus(true);
         }

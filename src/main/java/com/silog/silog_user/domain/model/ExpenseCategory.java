@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public class ExpenseCategory {
     private UUID id;
+    private UUID storeId;
     private UUID companyId;
     private String name;
     private String description;
@@ -21,6 +22,9 @@ public class ExpenseCategory {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    public UUID getStoreId() { return storeId; }
+    public void setStoreId(UUID storeId) { this.storeId = storeId; }
 
     public UUID getCompanyId() {
         return companyId;

@@ -7,6 +7,7 @@ public class InventoryMovementMapper {
     public static InventoryMovementEntity toEntity(InventoryMovement inventoryMovement) {
         InventoryMovementEntity entity = new InventoryMovementEntity();
         entity.setId(inventoryMovement.getId());
+        entity.setStoreId(inventoryMovement.getStoreId());
         entity.setVariantId(inventoryMovement.getVariantId());
         entity.setMovementType(inventoryMovement.getMovementType());
         entity.setQuantity(inventoryMovement.getQuantity());
@@ -15,10 +16,7 @@ public class InventoryMovementMapper {
         entity.setReferenceType(inventoryMovement.getReferenceType());
         entity.setReferenceId(inventoryMovement.getReferenceId());
         entity.setStatus(inventoryMovement.getStatus());
-        entity.setCreatedBy(inventoryMovement.getCreatedBy());
-        entity.setUpdatedBy(inventoryMovement.getUpdatedBy());
-        entity.setCreatedAt(inventoryMovement.getCreatedAt());
-        entity.setUpdatedAt(inventoryMovement.getUpdatedAt());
+        // Note: audit fields handled automatically by AuditingEntityListener
         return entity;
     }
 
@@ -28,6 +26,7 @@ public class InventoryMovementMapper {
         }
         InventoryMovement inventoryMovement = new InventoryMovement();
         inventoryMovement.setId(entity.getId());
+        inventoryMovement.setStoreId(entity.getStoreId());
         inventoryMovement.setVariantId(entity.getVariantId());
         inventoryMovement.setMovementType(entity.getMovementType());
         inventoryMovement.setQuantity(entity.getQuantity());

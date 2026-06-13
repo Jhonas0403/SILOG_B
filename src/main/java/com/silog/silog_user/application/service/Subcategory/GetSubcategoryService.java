@@ -6,6 +6,7 @@ import com.silog.silog_user.domain.port.out.SubcategoryRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GetSubcategoryService  implements GetSubcategoryUseCase {
@@ -17,7 +18,8 @@ public class GetSubcategoryService  implements GetSubcategoryUseCase {
     }
 
     @Override
-    public List<Subcategory> getSubcategories() {
+    public List<Subcategory> getSubcategories(UUID storeId) {
+        if (storeId != null) return subcategoryRepository.findByStoreId(storeId);
         return subcategoryRepository.findAll();
     }
 

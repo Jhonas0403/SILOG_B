@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public class Brand {
     private UUID id;
+    private UUID storeId;
     private String name;
     private String description;
     private UUID subcategoryId;
@@ -25,6 +26,9 @@ public class Brand {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    public UUID getStoreId() { return storeId; }
+    public void setStoreId(UUID storeId) { this.storeId = storeId; }
 
     public String getDescription() {
         return description;

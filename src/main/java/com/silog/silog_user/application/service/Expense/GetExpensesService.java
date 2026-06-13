@@ -6,6 +6,7 @@ import com.silog.silog_user.domain.port.out.ExpenseRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GetExpensesService implements GetExpensesUseCase {
@@ -16,7 +17,8 @@ public class GetExpensesService implements GetExpensesUseCase {
     }
 
     @Override
-    public List<Expense> getExpenses() {
+    public List<Expense> getExpenses(UUID storeId) {
+        if (storeId != null) return expenseRepositoryPort.findByStoreId(storeId);
         return expenseRepositoryPort.findAll();
     }
 }

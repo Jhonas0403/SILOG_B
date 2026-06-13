@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public interface JpaSubcategoryRepository extends JpaRepository<SubcategoryEntity, UUID> {
     List<SubcategoryEntity> findAllByOrderBySubcategoryOrderAsc();
-    @Query("SELECT COALESCE(MAX(s.subcategoryOrder), 0) FROM SubcategoryEntity s")
-    Integer findMaxSubcategoryOrder();
+    List<SubcategoryEntity> findByStoreIdOrderBySubcategoryOrderAsc(UUID storeId);
+
+    @Query("SELECT COALESCE(MAX(s.subcategoryOrder), 0) FROM SubcategoryEntity s WHERE s.storeId = :storeId")
+    Integer findMaxSubcategoryOrderByStoreId(@org.springframework.data.repository.query.Param("storeId") UUID storeId);
 }

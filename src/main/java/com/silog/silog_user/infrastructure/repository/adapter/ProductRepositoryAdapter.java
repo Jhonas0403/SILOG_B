@@ -37,7 +37,14 @@ public class ProductRepositoryAdapter  implements ProductRepositoryPort {
         return ProductMapper.toDomain(save);
     }
 
-    public Integer findMaxOrder() {
-        return jpaProductRepository.findMaxProductOrder();
+    @Override
+    public List<Product> findByStoreId(UUID storeId) {
+        return jpaProductRepository.findByStoreIdOrderByProductOrderAsc(storeId)
+                .stream().map(ProductMapper::toDomain).toList();
+    }
+
+    @Override
+    public Integer findMaxOrderByStoreId(UUID storeId) {
+        return jpaProductRepository.findMaxProductOrderByStoreId(storeId);
     }
 }

@@ -8,6 +8,7 @@ public class SubcategoryMapper {
     public static SubcategoryEntity toEntity(Subcategory subcategory) {
         SubcategoryEntity entity = new SubcategoryEntity();
         entity.setSubcategoryId(subcategory.getId());
+        entity.setStoreId(subcategory.getStoreId());
         entity.setSubcategoryName(subcategory.getName());
         entity.setSubcategoryStatus(subcategory.getStatus());
         entity.setSubcategoryOrder(subcategory.getOrder());
@@ -25,6 +26,7 @@ public class SubcategoryMapper {
         }
         Subcategory subcategory = new Subcategory();
         subcategory.setId(entity.getSubcategoryId());
+        subcategory.setStoreId(entity.getStoreId());
         subcategory.setName(entity.getSubcategoryName());
         subcategory.setStatus(entity.getSubcategoryStatus());
         subcategory.setOrder(entity.getSubcategoryOrder());

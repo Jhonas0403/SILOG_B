@@ -6,6 +6,7 @@ import com.silog.silog_user.domain.port.out.SaleDetailRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GetSaleDetailsService implements GetSaleDetailsUseCase {
@@ -16,7 +17,10 @@ public class GetSaleDetailsService implements GetSaleDetailsUseCase {
     }
 
     @Override
-    public List<SaleDetail> getSaleDetails() {
+    public List<SaleDetail> getSaleDetails(UUID storeId) {
+        if (storeId != null) {
+            return saleDetailRepositoryPort.findByStoreId(storeId);
+        }
         return saleDetailRepositoryPort.findAll();
     }
 }

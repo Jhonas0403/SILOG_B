@@ -5,10 +5,10 @@ import com.silog.silog_user.domain.port.in.Variant.CreateVariantUseCase;
 import com.silog.silog_user.domain.port.out.VariantRepositoryPort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @Service
-public class CreateVariantService  implements CreateVariantUseCase {
+public class CreateVariantService implements CreateVariantUseCase {
     private final VariantRepositoryPort variantRepositoryPort;
 
     public CreateVariantService(VariantRepositoryPort variantRepositoryPort) {
@@ -17,30 +17,25 @@ public class CreateVariantService  implements CreateVariantUseCase {
 
     @Override
     public Variant create(Variant variant) {
-        Integer nextOrder = variantRepositoryPort.findMaxOrder() + 1;
+        Integer nextOrder = variantRepositoryPort.findMaxOrderByStoreId(variant.getStoreId()) + 1;
         if (variant.getStatus() == null) {
             variant.setStatus(true);
         }
         if (variant.getStock() == null) {
             variant.setStock(0);
         }
+        // BUG FIX: use BigDecimal.ZERO instead of 0.0 (double literal)
         if (variant.getPurchasePrice() == null) {
-            variant.setPurchasePrice(0.0);
+            variant.setPurchasePrice(BigDecimal.ZERO);
         }
         if (variant.getSalePrice() == null) {
-            variant.setSalePrice(0.0);
+            variant.setSalePrice(BigDecimal.ZERO);
         }
         if (variant.getMinSalePrice() == null) {
-            variant.setMinSalePrice(0.0);
+            variant.setMinSalePrice(BigDecimal.ZERO);
         }
-        if (variant.getUpdatedBy() == null) {
-            variant.setUpdatedBy(variant.getCreatedBy());
-        }
-        variant.setCreatedAt(LocalDateTime.now());
-        variant.setUpdatedAt(LocalDateTime.now());
         variant.setOrder(nextOrder);
-
-        return  variantRepositoryPort.save(variant);
+        // Note: audit fields are set automatically by AuditingEntityListener
+        return variantRepositoryPort.save(variant);
     }
-
 }

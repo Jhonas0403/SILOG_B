@@ -2,96 +2,50 @@ package com.silog.silog_user.interfaces.rest.sale.dto;
 
 import com.silog.silog_user.domain.model.Sale;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 public class SaleResponse {
     private UUID id;
-    private LocalDateTime saleDate;
-    private Double total;
+    private ZonedDateTime saleDate;
+    private BigDecimal total;
     private Boolean status;
-    private UUID createdBy;
-    private UUID updatedBy;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private UUID storeId;
+    private UUID paymentMethodId;
+    private String operationCode;
 
     public static SaleResponse fromDomain(Sale sale) {
-        if (sale == null) {
-            return null;
-        }
+        if (sale == null) return null;
         SaleResponse response = new SaleResponse();
         response.setId(sale.getId());
         response.setSaleDate(sale.getSaleDate());
         response.setTotal(sale.getTotal());
         response.setStatus(sale.getStatus());
-        response.setCreatedBy(sale.getCreatedBy());
-        response.setUpdatedBy(sale.getUpdatedBy());
-        response.setCreatedAt(sale.getCreatedAt());
-        response.setUpdatedAt(sale.getUpdatedAt());
+        response.setStoreId(sale.getStoreId());
+        response.setPaymentMethodId(sale.getPaymentMethodId());
+        response.setOperationCode(sale.getOperationCode());
         return response;
     }
 
-    public UUID getId() {
-        return id;
-    }
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    public ZonedDateTime getSaleDate() { return saleDate; }
+    public void setSaleDate(ZonedDateTime saleDate) { this.saleDate = saleDate; }
 
-    public LocalDateTime getSaleDate() {
-        return saleDate;
-    }
+    public BigDecimal getTotal() { return total; }
+    public void setTotal(BigDecimal total) { this.total = total; }
 
-    public void setSaleDate(LocalDateTime saleDate) {
-        this.saleDate = saleDate;
-    }
+    public Boolean getStatus() { return status; }
+    public void setStatus(Boolean status) { this.status = status; }
 
-    public Double getTotal() {
-        return total;
-    }
+    public UUID getStoreId() { return storeId; }
+    public void setStoreId(UUID storeId) { this.storeId = storeId; }
 
-    public void setTotal(Double total) {
-        this.total = total;
-    }
+    public UUID getPaymentMethodId() { return paymentMethodId; }
+    public void setPaymentMethodId(UUID paymentMethodId) { this.paymentMethodId = paymentMethodId; }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    public String getOperationCode() { return operationCode; }
+    public void setOperationCode(String operationCode) { this.operationCode = operationCode; }
 }

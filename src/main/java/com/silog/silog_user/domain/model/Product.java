@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public class Product {
     private UUID id;
+    private UUID storeId;
     private String name;
     private UUID brandId;
     private Boolean status;
@@ -40,6 +41,9 @@ public class Product {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    public UUID getStoreId() { return storeId; }
+    public void setStoreId(UUID storeId) { this.storeId = storeId; }
 
     public Boolean getStatus() {
         return status;

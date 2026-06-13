@@ -7,6 +7,7 @@ public class ExpenseCategoryMapper {
     public static ExpenseCategoryEntity toEntity(ExpenseCategory expenseCategory) {
         ExpenseCategoryEntity entity = new ExpenseCategoryEntity();
         entity.setId(expenseCategory.getId());
+        entity.setStoreId(expenseCategory.getStoreId());
         entity.setCompanyId(expenseCategory.getCompanyId());
         entity.setName(expenseCategory.getName());
         entity.setDescription(expenseCategory.getDescription());
@@ -24,6 +25,7 @@ public class ExpenseCategoryMapper {
         }
         ExpenseCategory expenseCategory = new ExpenseCategory();
         expenseCategory.setId(entity.getId());
+        expenseCategory.setStoreId(entity.getStoreId());
         expenseCategory.setCompanyId(entity.getCompanyId());
         expenseCategory.setName(entity.getName());
         expenseCategory.setDescription(entity.getDescription());

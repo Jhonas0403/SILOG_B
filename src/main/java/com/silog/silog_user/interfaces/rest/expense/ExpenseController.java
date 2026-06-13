@@ -7,6 +7,9 @@ import com.silog.silog_user.domain.port.in.Expense.GetExpensesUseCase;
 import com.silog.silog_user.interfaces.rest.expense.dto.ExpenseRequest;
 import com.silog.silog_user.interfaces.rest.expense.dto.ExpenseResponse;
 import org.springframework.http.ResponseEntity;
+import com.silog.silog_user.infrastructure.security.UserPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +34,8 @@ public class ExpenseController {
 
     @GetMapping
     public ResponseEntity<List<ExpenseResponse>> getExpenses() {
-        List<Expense> expenses = getExpensesUseCase.getExpenses();
+        UUID storeId = getStoreIdFromJwt();
+        List<Expense> expenses = getExpensesUseCase.getExpenses(storeId);
         return ResponseEntity.ok(expenses.stream().map(ExpenseResponse::fromDomain).toList());
     }
 
@@ -43,7 +47,15 @@ public class ExpenseController {
 
     @PostMapping
     public ResponseEntity<ExpenseResponse> createExpense(@RequestBody ExpenseRequest expense) {
-        Expense created = createExpenseUseCase.create(expense.toDomain());
+        Expense dom = expense.toDomain();
+        dom.setStoreId(getStoreIdFromJwt());
+        Expense created = createExpenseUseCase.create(dom);
         return ResponseEntity.ok(ExpenseResponse.fromDomain(created));
+    }
+
+    private UUID getStoreIdFromJwt() {
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
+        return principal.getStoreId() != null ? UUID.fromString(principal.getStoreId()) : null;
     }
 }

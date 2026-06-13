@@ -9,9 +9,10 @@ public class VariantRequest {
     private String name;
     private String barcode;
     private Integer stock;
-    private Double purchasePrice;
-    private Double salePrice;
-    private Double minSalePrice;
+    // BUG FIX: was Double — changed to BigDecimal for exact monetary values
+    private java.math.BigDecimal purchasePrice;
+    private java.math.BigDecimal salePrice;
+    private java.math.BigDecimal minSalePrice;
     private Boolean status;
     private UUID createdBy;
 
@@ -61,29 +62,14 @@ public class VariantRequest {
         this.stock = stock;
     }
 
-    public Double getPurchasePrice() {
-        return purchasePrice;
-    }
+    public java.math.BigDecimal getPurchasePrice() { return purchasePrice; }
+    public void setPurchasePrice(java.math.BigDecimal purchasePrice) { this.purchasePrice = purchasePrice; }
 
-    public void setPurchasePrice(Double purchasePrice) {
-        this.purchasePrice = purchasePrice;
-    }
+    public java.math.BigDecimal getSalePrice() { return salePrice; }
+    public void setSalePrice(java.math.BigDecimal salePrice) { this.salePrice = salePrice; }
 
-    public Double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(Double salePrice) {
-        this.salePrice = salePrice;
-    }
-
-    public Double getMinSalePrice() {
-        return minSalePrice;
-    }
-
-    public void setMinSalePrice(Double minSalePrice) {
-        this.minSalePrice = minSalePrice;
-    }
+    public java.math.BigDecimal getMinSalePrice() { return minSalePrice; }
+    public void setMinSalePrice(java.math.BigDecimal minSalePrice) { this.minSalePrice = minSalePrice; }
 
     public Boolean getStatus() {
         return status;

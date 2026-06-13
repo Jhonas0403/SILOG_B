@@ -38,4 +38,12 @@ public class SaleDetailRepositoryAdapter implements SaleDetailRepositoryPort {
                 .map(SaleDetailMapper::toDomain)
                 .orElse(null);
     }
+
+    @Override
+    public List<SaleDetail> findByStoreId(UUID storeId) {
+        return jpaSaleDetailRepository.findByStoreIdOrderByCreatedAtDesc(storeId)
+                .stream()
+                .map(SaleDetailMapper::toDomain)
+                .toList();
+    }
 }

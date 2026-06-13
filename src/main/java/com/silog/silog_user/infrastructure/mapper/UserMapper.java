@@ -7,7 +7,8 @@ public class UserMapper {
 
     public static UserEntity toEntity(User user){
         UserEntity entity = new UserEntity();
-        entity.setUserId(user.getId());
+        // BUG FIX: was entity.setUserId() — with Lombok the correct method is setId()
+        entity.setId(user.getId());
         entity.setCompanyId(user.getCompanyId());
         entity.setStoreId(user.getStoreId());
         entity.setUserName(user.getFirstName());
@@ -18,9 +19,8 @@ public class UserMapper {
         entity.setUserPhone(user.getPhone());
         entity.setUserAddress(user.getAddress());
         entity.setUserStatus(user.getStatus());
-        entity.setCreatedAt(user.getCreatedAt());
-        entity.setUpdatedAt(user.getUpdatedAt());
         entity.setUserRoleId(user.getUserRoleId());
+        // Note: createdAt, updatedAt handled automatically by AuditingEntityListener
         return entity;
     }
 
@@ -29,7 +29,8 @@ public class UserMapper {
             return null;
         }
         User user = new User();
-        user.setId(e.getUserId());
+        // BUG FIX: was e.getUserId() — with Lombok the correct method is getId()
+        user.setId(e.getId());
         user.setCompanyId(e.getCompanyId());
         user.setStoreId(e.getStoreId());
         user.setFirstName(e.getUserName());

@@ -8,8 +8,8 @@ public class InventoryMovementRequest {
     private UUID variantId;
     private String movementType;
     private Integer quantity;
-    private Double purchasePrice;
-    private Double salePrice;
+    private java.math.BigDecimal purchasePrice;
+    private java.math.BigDecimal salePrice;
     private String referenceType;
     private UUID referenceId;
     private UUID createdBy;
@@ -51,21 +51,11 @@ public class InventoryMovementRequest {
         this.quantity = quantity;
     }
 
-    public Double getPurchasePrice() {
-        return purchasePrice;
-    }
+    public java.math.BigDecimal getPurchasePrice() { return purchasePrice; }
+    public void setPurchasePrice(java.math.BigDecimal purchasePrice) { this.purchasePrice = purchasePrice; }
 
-    public void setPurchasePrice(Double purchasePrice) {
-        this.purchasePrice = purchasePrice;
-    }
-
-    public Double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(Double salePrice) {
-        this.salePrice = salePrice;
-    }
+    public java.math.BigDecimal getSalePrice() { return salePrice; }
+    public void setSalePrice(java.math.BigDecimal salePrice) { this.salePrice = salePrice; }
 
     public String getReferenceType() {
         return referenceType;

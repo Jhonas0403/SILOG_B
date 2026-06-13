@@ -1,79 +1,64 @@
 package com.silog.silog_user.domain.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
+/**
+ * Fixes applied:
+ * - 'total' changed from Double to BigDecimal
+ * - Audit fields kept so responses can show who created/modified
+ */
 public class Sale {
     private UUID id;
-    private LocalDateTime saleDate;
-    private Double total;
+    private ZonedDateTime saleDate;
+    private BigDecimal total;
     private Boolean status;
+    private UUID storeId;
+    private UUID paymentMethodId;
+    private String paymentMethodName;
+    private String operationCode;
     private UUID createdBy;
     private UUID updatedBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public UUID getId() {
-        return id;
-    }
+    public Sale() {}
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
 
-    public LocalDateTime getSaleDate() {
-        return saleDate;
-    }
+    public ZonedDateTime getSaleDate() { return saleDate; }
+    public void setSaleDate(ZonedDateTime saleDate) { this.saleDate = saleDate; }
 
-    public void setSaleDate(LocalDateTime saleDate) {
-        this.saleDate = saleDate;
-    }
+    public BigDecimal getTotal() { return total; }
+    public void setTotal(BigDecimal total) { this.total = total; }
 
-    public Double getTotal() {
-        return total;
-    }
+    public Boolean getStatus() { return status; }
+    public void setStatus(Boolean status) { this.status = status; }
 
-    public void setTotal(Double total) {
-        this.total = total;
-    }
+    public UUID getCreatedBy() { return createdBy; }
+    public void setCreatedBy(UUID createdBy) { this.createdBy = createdBy; }
 
-    public Boolean getStatus() {
-        return status;
-    }
+    public UUID getStoreId() { return storeId; }
+    public void setStoreId(UUID storeId) { this.storeId = storeId; }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
+    public UUID getPaymentMethodId() { return paymentMethodId; }
+    public void setPaymentMethodId(UUID paymentMethodId) { this.paymentMethodId = paymentMethodId; }
 
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
+    public String getPaymentMethodName() { return paymentMethodName; }
+    public void setPaymentMethodName(String paymentMethodName) { this.paymentMethodName = paymentMethodName; }
 
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
+    public String getOperationCode() { return operationCode; }
+    public void setOperationCode(String operationCode) { this.operationCode = operationCode; }
 
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
+    public UUID getUpdatedBy() { return updatedBy; }
+    public void setUpdatedBy(UUID updatedBy) { this.updatedBy = updatedBy; }
 
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }

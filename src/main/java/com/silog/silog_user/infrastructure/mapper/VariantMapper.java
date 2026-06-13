@@ -8,6 +8,7 @@ public class VariantMapper {
     public static VariantEntity toEntity(Variant variant) {
         VariantEntity entity = new VariantEntity();
         entity.setVariantId(variant.getId());
+        entity.setStoreId(variant.getStoreId());
         entity.setVariantProductId(variant.getProductId());
         entity.setVariantName(variant.getName());
         entity.setVariantBarcode(variant.getBarcode());
@@ -17,10 +18,7 @@ public class VariantMapper {
         entity.setVariantSalePrice(variant.getSalePrice());
         entity.setVariantMinSalePrice(variant.getMinSalePrice());
         entity.setVariantStatus(variant.getStatus());
-        entity.setCreatedAt(variant.getCreatedAt());
-        entity.setUpdatedAt(variant.getUpdatedAt());
-        entity.setCreatedBy(variant.getCreatedBy());
-        entity.setUpdatedBy(variant.getUpdatedBy());
+        // Note: audit fields handled automatically by AuditingEntityListener
         return entity;
     }
 
@@ -30,6 +28,7 @@ public class VariantMapper {
         }
         Variant variant = new Variant();
         variant.setId(entity.getVariantId());
+        variant.setStoreId(entity.getStoreId());
         variant.setProductId(entity.getVariantProductId());
         variant.setName(entity.getVariantName());
         variant.setBarcode(entity.getVariantBarcode());
@@ -39,12 +38,6 @@ public class VariantMapper {
         variant.setSalePrice(entity.getVariantSalePrice());
         variant.setMinSalePrice(entity.getVariantMinSalePrice());
         variant.setStatus(entity.getVariantStatus());
-        variant.setCreatedAt(entity.getCreatedAt());
-        variant.setUpdatedAt(entity.getUpdatedAt());
-        variant.setCreatedBy(entity.getCreatedBy());
-        variant.setUpdatedBy(entity.getUpdatedBy());
         return variant;
-
     }
-
 }

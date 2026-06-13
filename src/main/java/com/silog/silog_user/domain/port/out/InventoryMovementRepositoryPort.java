@@ -8,5 +8,6 @@ import java.util.UUID;
 public interface InventoryMovementRepositoryPort {
     InventoryMovement save(InventoryMovement inventoryMovement);
     List<InventoryMovement> findAll();
+    List<InventoryMovement> findByStoreId(UUID storeId);
     InventoryMovement findById(UUID id);
 }

@@ -8,6 +8,7 @@ import com.silog.silog_user.infrastructure.repository.jpa.JpaCategoryRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
@@ -24,8 +25,14 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
     }
 
     @Override
-    public Integer findMaxOrder() {
-        return jpaCategoryRepository.findMaxCategoryOrder();
+    public List<Category> findByStoreId(UUID storeId) {
+        return jpaCategoryRepository.findByStoreIdOrderByCategoryOrderAsc(storeId)
+                .stream().map(CategoryMapper::toDomain).toList();
+    }
+
+    @Override
+    public Integer findMaxOrderByStoreId(UUID storeId) {
+        return jpaCategoryRepository.findMaxCategoryOrderByStoreId(storeId);
     }
 
     @Override

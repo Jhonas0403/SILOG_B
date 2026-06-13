@@ -7,6 +7,7 @@ import com.silog.silog_user.domain.port.out.VariantRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GetVariants implements GetVariantUseCase {
@@ -16,7 +17,8 @@ public class GetVariants implements GetVariantUseCase {
         this.variantRepository = variantRepository;
     }
     @Override
-    public List<Variant> getVariants() {
+    public List<Variant> getVariants(UUID storeId) {
+        if (storeId != null) return variantRepository.findByStoreId(storeId);
         return variantRepository.findAll();
     }
 

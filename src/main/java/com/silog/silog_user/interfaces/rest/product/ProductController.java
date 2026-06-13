@@ -7,6 +7,9 @@ import com.silog.silog_user.domain.port.in.Products.GetProductUseCase;
 import com.silog.silog_user.interfaces.rest.product.dto.ProductRequest;
 import com.silog.silog_user.interfaces.rest.product.dto.ProductResponse;
 import org.springframework.http.ResponseEntity;
+import com.silog.silog_user.infrastructure.security.UserPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +30,8 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<ProductResponse>> getProducts(){
-        List<Product> products = getProductUseCase.getProducts();
+        UUID storeId = getStoreIdFromJwt();
+        List<Product> products = getProductUseCase.getProducts(storeId);
         return ResponseEntity.ok(products.stream().map(ProductResponse::fromDomain).toList());
     }
 
@@ -39,7 +43,15 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest product){
-        Product createdProduct =  createProductUseCase.create(product.toDomain());
+        Product dom = product.toDomain();
+        dom.setStoreId(getStoreIdFromJwt());
+        Product createdProduct = createProductUseCase.create(dom);
         return ResponseEntity.ok(ProductResponse.fromDomain(createdProduct));
+    }
+
+    private UUID getStoreIdFromJwt() {
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
+        return principal.getStoreId() != null ? UUID.fromString(principal.getStoreId()) : null;
     }
 }

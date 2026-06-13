@@ -9,8 +9,8 @@ import java.util.UUID;
 
 public interface JpaBrandRepository extends JpaRepository<BrandEntity, UUID> {
     List<BrandEntity> findAllByOrderByBrandOrderAsc();
+    List<BrandEntity> findByStoreIdOrderByBrandOrderAsc(UUID storeId);
 
-    @Query("SELECT COALESCE(MAX(b.brandOrder), 0) FROM BrandEntity b")
-    Integer findMaxBrandOrder();
-
+    @Query("SELECT COALESCE(MAX(b.brandOrder), 0) FROM BrandEntity b WHERE b.storeId = :storeId")
+    Integer findMaxBrandOrderByStoreId(@org.springframework.data.repository.query.Param("storeId") UUID storeId);
 }

@@ -8,6 +8,7 @@ import com.silog.silog_user.infrastructure.repository.jpa.JpaBrandRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class BrandRepositoryAdapter implements BrandRepositoryPort {
@@ -30,7 +31,13 @@ public class BrandRepositoryAdapter implements BrandRepositoryPort {
     }
 
     @Override
-    public  Integer findMaxOrder() {
-        return jpaBrandRepository.findMaxBrandOrder();
+    public List<Brand> findByStoreId(UUID storeId) {
+        return jpaBrandRepository.findByStoreIdOrderByBrandOrderAsc(storeId)
+                .stream().map(BrandMapper::toDomain).toList();
+    }
+
+    @Override
+    public Integer findMaxOrderByStoreId(UUID storeId) {
+        return jpaBrandRepository.findMaxBrandOrderByStoreId(storeId);
     }
 }

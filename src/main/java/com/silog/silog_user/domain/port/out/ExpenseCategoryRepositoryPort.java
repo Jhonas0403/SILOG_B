@@ -8,5 +8,6 @@ import java.util.UUID;
 public interface ExpenseCategoryRepositoryPort {
     ExpenseCategory save(ExpenseCategory expenseCategory);
     List<ExpenseCategory> findAll();
+    List<ExpenseCategory> findByStoreId(UUID storeId);
     ExpenseCategory findById(UUID id);
 }

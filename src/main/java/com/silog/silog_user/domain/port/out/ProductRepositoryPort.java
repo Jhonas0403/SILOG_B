@@ -7,7 +7,8 @@ import java.util.UUID;
 
 public interface ProductRepositoryPort {
     List<Product> findAll();
+    List<Product> findByStoreId(UUID storeId);
     Product findById(UUID id);
     Product save(Product product);
-    Integer findMaxOrder();
+    Integer findMaxOrderByStoreId(UUID storeId);
 }

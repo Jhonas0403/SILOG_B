@@ -33,6 +33,12 @@ public class ExpenseRepositoryAdapter implements ExpenseRepositoryPort {
     }
 
     @Override
+    public List<Expense> findByStoreId(UUID storeId) {
+        return jpaExpenseRepository.findByStoreIdOrderByExpenseDateDescCreatedAtDesc(storeId)
+                .stream().map(ExpenseMapper::toDomain).toList();
+    }
+
+    @Override
     public Expense findById(UUID id) {
         return jpaExpenseRepository.findById(id)
                 .map(ExpenseMapper::toDomain)

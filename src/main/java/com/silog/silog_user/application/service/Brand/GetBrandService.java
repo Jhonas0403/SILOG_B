@@ -6,6 +6,7 @@ import com.silog.silog_user.domain.port.out.BrandRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GetBrandService  implements GetBrandUseCase {
@@ -14,7 +15,8 @@ public class GetBrandService  implements GetBrandUseCase {
         this.brandRepository = brandRepository;
     }
     @Override
-    public List<Brand> getBrands() {
+    public List<Brand> getBrands(UUID storeId) {
+        if (storeId != null) return brandRepository.findByStoreId(storeId);
         return brandRepository.findAll();
     }
 }

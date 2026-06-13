@@ -33,6 +33,12 @@ public class ExpenseCategoryRepositoryAdapter implements ExpenseCategoryReposito
     }
 
     @Override
+    public List<ExpenseCategory> findByStoreId(UUID storeId) {
+        return jpaExpenseCategoryRepository.findByStoreIdOrderByNameAsc(storeId)
+                .stream().map(ExpenseCategoryMapper::toDomain).toList();
+    }
+
+    @Override
     public ExpenseCategory findById(UUID id) {
         return jpaExpenseCategoryRepository.findById(id)
                 .map(ExpenseCategoryMapper::toDomain)

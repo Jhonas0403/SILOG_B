@@ -9,6 +9,7 @@ public interface UserRepositoryPort {
     User save(User user);
     List<User> findAll();
     User findById(UUID id);
+    User findByEmail(String email);
     User update(User user);
-    User patch( User user);
+    User patch(User user);
 }
