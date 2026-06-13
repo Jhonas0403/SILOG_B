@@ -67,6 +67,7 @@ public class SecurityConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
+                // Allow requests from Vercel frontend with JWT authentication
                 registry.addMapping("/**")
                         .allowedOrigins("https://silog-phi.vercel.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
